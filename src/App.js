@@ -1,17 +1,11 @@
 
-import './App.css';
-import Dashboard from './Dashboard';
-import Login from './Login';
-import Register from './Register';
+import { Outlet } from 'react-router-dom'; 
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   return (
-    <div className="App">
-      
-    {/* <Dashboard/> */}
-    {/* <Login/> */}
-    <Register/>
-
+    <div className="App"> 
+     <Outlet/>
     </div>
   );
 }

@@ -1,29 +1,68 @@
 import React,{useState} from 'react'
+import { Link } from 'react-router-dom'
+import base_url from '../../api/bootapi'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom' 
+import { useUser } from '../../contexts/UserContext'
 
-  const Login = () => {
+  const Login = () => { 
+    const{setUser} = useUser();       // user context
+    const navigate = useNavigate();
+
+    let [email, setEmail] = useState('')
+    let [password, setPassword] = useState('') 
+
+    const handleSubmit = (e) =>{
+        e.preventDefault(); 
+
+        axios.post(`${base_url}/login`,{email, password})
+        .then((response) =>{  
+           return response.data
+        })
+        .then((data)=>{ 
+            console.log(data);
+            if(data != null && data.password == password){
+              setUser({
+                firstName : data.firstName,
+                lastName : data.lastName,
+              }) 
+              localStorage.setItem('firstName',data.firstName)
+              localStorage.setItem('lastName',data.lastName)
+              navigate('/dashboard')
+            }else{
+              alert('Invalid password or Email')
+            }
+        })
+        .catch((error)=>{
+          console.log('error : ',error);
+        })
+    }
+
     return(
       <body class="flex font-poppins items-center justify-center">
       <div class="h-screen w-screen flex justify-center items-center dark:bg-gray-900">
       <div class="grid gap-8">
         <div
           id="back-div"
-          class="bg-gradient-to-r from-blue-500 to-purple-500 rounded-[26px] m-4"
+          class="bg-gradient-to-r from-blue-500 to-purple-500 shadow-customShadow rounded-[26px] m-4"
         >
           <div
             class="border-[20px] border-transparent rounded-[20px] dark:bg-gray-900 bg-white shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2"
           >
-            <h1 class="pt-8 pb-6 font-bold dark:text-gray-400 text-5xl text-center cursor-default">
+            <h1 class="pt-2 pb-6 font-bold dark:text-gray-400 text-5xl text-center cursor-default">
               Log in
             </h1>
-            <form action="#" method="post" class="space-y-4">
+            <form onSubmit={handleSubmit} action="#" method="post" class="space-y-4">
               <div className='text-left'>
                 <label for="email" class="mb-2  dark:text-gray-400 text-lg">Email</label>
                 <input
                   id="email"
                   class="border p-3 dark:bg-indigo-700 dark:text-gray-300  dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                   type="email"
+                  value={email}
                   placeholder="Email"
                   required
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className='text-left'>
@@ -32,8 +71,10 @@ import React,{useState} from 'react'
                   id="password"
                   class="border p-3 shadow-md dark:bg-indigo-700 dark:text-gray-300  dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                   type="password"
+                  value={password}
                   placeholder="Password"
-                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                  required 
                 />
               </div>
               <a
@@ -58,7 +99,7 @@ import React,{useState} from 'react'
             <div class="flex flex-col mt-4 items-center justify-center text-sm">
               <h3 class="dark:text-gray-300">
                 Don't have an account?
-                <a
+                {/* <a
                   class="group text-blue-400 transition-all duration-100 ease-in-out"
                   href="#"
                 >
@@ -67,7 +108,14 @@ import React,{useState} from 'react'
                   >
                     Sign Up
                   </span>
-                </a>
+                </a> */}
+                <Link to={'/register'}
+                  className="group text-blue-400 transition-all duration-100 ease-in-out"
+                  >
+                    <span
+                    className="bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out m-2"
+                    >Sign Up</span>
+                  </Link>
               </h3>
             </div>
             <div

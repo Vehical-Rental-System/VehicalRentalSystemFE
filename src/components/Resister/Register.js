@@ -1,4 +1,36 @@
+import { Link } from "react-router-dom";
+import { useState,useEffect } from "react";
+import axios from "axios";
+import base_url from "../../api/bootapi";
+
 function Register() {
+
+    let [firstName , setFirstName] = useState('')
+    let [lastName , setLastName] = useState('')
+    let [email , setEmail] = useState('')
+    let [password , setPassword] = useState('') 
+    let [confirmPassword, setConfirmPassword] = useState('')
+
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+
+      if(password != confirmPassword){
+        alert("Passwords do not match!");
+        return;
+      }
+
+      const user = {firstName,lastName,email,password}; 
+
+      axios.post(`${base_url}/register`,user)
+      .then((response) =>{
+        console.log('User Register !');
+        alert('Registered successfully!');
+      })
+      .catch((error) =>{
+        console.log('Error : ',error);
+      })
+    }
+
     return (
       <body
     class="flex font-poppins items-center justify-center dark:bg-gray-900 min-w-screen min-h-screen"
@@ -11,18 +43,19 @@ function Register() {
         <div
           class="border-[20px] border-transparent rounded-[20px] dark:bg-gray-900 bg-white shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2"
         >
-          <h1 class="pt-8 pb-6 font-bold text-5xl dark:text-gray-400 text-center cursor-default">
+          <h1 class="pt-1 pb-5 font-bold text-5xl dark:text-gray-400 text-center cursor-default">
             Sign Up
           </h1>
-          <form action="#" method="post" class="space-y-4">
+          <form onSubmit={handleSubmit} action="#" method="post" class="space-y-4">
           <div className='text-left'>
               <label for="firstName" class="mb-2 dark:text-gray-400 text-lg">First Name</label>
               <input
                 id="firstName"
                 class="border dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 p-3 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full focus:scale-105 ease-in-out duration-300"
-                type="text"
+                type="text" 
                 placeholder="First Name"
                 required
+                onChange={(e)=>setFirstName(e.target.value)}
               />
             </div>
             <div className='text-left'>
@@ -33,6 +66,7 @@ function Register() {
                 type="text"
                 placeholder="Last Name"
                 required
+                onChange={(e)=>setLastName(e.target.value)}
               />
             </div>
             <div className='text-left'>
@@ -43,6 +77,7 @@ function Register() {
                 type="email"
                 placeholder="Email"
                 required
+                onChange={(e)=>setEmail(e.target.value)}
               />
             </div>
             <div className='text-left'>
@@ -53,6 +88,7 @@ function Register() {
                 type="password"
                 placeholder="Password"
                 required
+                onChange={(e)=>setPassword(e.target.value)}
               />
             </div>
             <div className='text-left'>
@@ -63,11 +99,12 @@ function Register() {
                 type="password"
                 placeholder="Confirm Password"
                 required
+                onChange={(e)=>setConfirmPassword(e.target.value)}
               />
             </div>
             <button
               class="bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-blue-500 transition duration-300 ease-in-out"
-              type="submit"
+              type="submit" 
             >
               SIGN UP
             </button>
@@ -75,7 +112,7 @@ function Register() {
           <div class="flex flex-col mt-4 items-center justify-center text-sm">
             <h3>
               <span class="cursor-default dark:text-gray-300">Have an account?</span>
-              <a
+              <Link to={'/'}
                 class="group text-blue-400 transition-all duration-100 ease-in-out"
                 href="#"
               >
@@ -84,7 +121,7 @@ function Register() {
                 >
                   Log In
                 </span>
-              </a>
+              </Link>
             </h3>
           </div>
 
