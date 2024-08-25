@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link,NavLink,useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import Logout from '../Profile/Logout'
 
 
 import activeRide from './assets/activeRide.svg'
@@ -9,19 +11,27 @@ import profile from './assets/profile.svg'
 import setting from './assets/setting.svg'
 import logout from './assets/logout.svg'
 import dashboard from './assets/dashboard.svg'
-import { useUser } from '../../contexts/UserContext'
+// import { useUser } from '../../contexts/UserContext'
 
 
 function Sidebar() {
     const navigate = useNavigate();
-    const {setUser} = useUser();
+    // const {setUser} = useUser();
 
-    const handleLogout = () =>{
-        setUser('')
-        localStorage.removeItem('firstName')
-        localStorage.removeItem('lastName')
-        navigate('/');
-    }
+    // const handleLogout = () =>{
+    //     axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`)
+    //     .then((res) =>{
+    //         console.log(res.data)
+    //     })
+    //     .catch((error) =>{
+    //         console.log("error: ", error);
+    //     })
+
+    //     // setUser('')
+    //     // localStorage.removeItem('firstName')
+    //     // localStorage.removeItem('lastName')
+    //     navigate('/');
+    // }
 
   return (
     <aside className='rounded-lg shadow-customShadow bg-gray-200 hover:bg-gra-300
@@ -86,14 +96,15 @@ function Sidebar() {
                     <span className=''>Setting</span>
                 </NavLink>
 
-                <button
+                {/* <button
                 className='flex justify-center rounded-lg hover:shadow-customShadow px-3 py-2 mt-3 ml-3 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700'
                 type='button'
                 onClick={handleLogout}
                 >
                     <img src={logout} className='absolute left-10'/>
                     <span>Logout</span>
-                </button> 
+                </button>  */}
+                <Logout/>
                   
             </div>
         </div>

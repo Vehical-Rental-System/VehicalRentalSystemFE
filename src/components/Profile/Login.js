@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../../contexts/UserContext";
+import { useNavigate } from "react-router-dom"; 
+import { login } from "../../store/userSlice";
+import { useDispatch } from "react-redux";
 
-const Login = () => {
-  const { setUser } = useUser(); // user context
-  const navigate = useNavigate();
+const Login = () => { 
+  const navigate = useNavigate(); 
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-    getValues,
+    reset
   } = useForm({
     defaultValues: {
       email: "",
@@ -26,10 +26,14 @@ const Login = () => {
     axios
       .post(`${process.env.REACT_APP_BASE_URL}/users/login`, data)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         return res.data;
       })
       .then((res) => {
+        const userData = res.data.user
+        // console.log(userData)
+        dispatch(login({userData, accessToken: ""}))
+         
         if (res != null && res.success) {
           navigate("/dashboard");
         } else {

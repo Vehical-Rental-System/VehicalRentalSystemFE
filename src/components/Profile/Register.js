@@ -40,29 +40,7 @@ const Register = () => {
       .finally(() => {
         reset();
       });
-  };
-
-  // const handleSubmi = (e) => {
-  //   e.preventDefault();
-
-  // if (password != confirmPassword) {
-  //   alert("Passwords do not match!");
-  //   return;
-  // }
-
-  //   const user = { firstName, lastName, email, password };
-
-  //   axios
-  //     .post(`${base_url}/register`, user)
-  //     .then((response) => {
-  //       console.log("User Register !");
-  //       alert("Registered successfully!");
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error : ", error);
-  //     });
-  // };
-
+  }; 
   return (
     <div className="w-screen h-screen bg-gray-300 flex items-center justify-center">
       <div className="px-9 py-4 border-[3px] rounded-[20px] bg-gray-200 shadow-customShadow1">
