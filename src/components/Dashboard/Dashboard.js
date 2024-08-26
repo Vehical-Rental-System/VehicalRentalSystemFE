@@ -2,25 +2,27 @@ import React, { useEffect } from "react";
 import Sidebar from "./Sidebar"; 
 // import Vehicle from "./Vehicles";
 import { Outlet, useLocation, NavLink } from "react-router-dom";
-import { useUser } from "../../contexts/UserContext";
+// import { useUser } from "../../contexts/UserContext";
+import { useSelector } from "react-redux";
 
 import profile from "./assets/profile.svg";
 
 const Dashboard = () => {
   const location = useLocation();
+  const userData = useSelector((state) => state.user.userData) 
   const isNewRideActive = location.pathname.startsWith("/newRide");
 
-  const { user, setUser } = useUser(); // user context
-  useEffect(() => {
-    const firstName = localStorage.getItem("firstName");
-    const lastName = localStorage.getItem("lastName");
-    if (firstName && lastName) {
-      setUser({
-        firstName: firstName,
-        lastName: lastName,
-      });
-    }
-  }, []);
+  // const { user, setUser } = useUser(); // user context
+  // useEffect(() => {
+  //   const firstName = localStorage.getItem("firstName");
+  //   const lastName = localStorage.getItem("lastName");
+  //   if (firstName && lastName) {
+  //     setUser({
+  //       firstName: firstName,
+  //       lastName: lastName,
+  //     });
+  //   }
+  // }, []);
   return (
     <>
       <nav
@@ -50,9 +52,9 @@ const Dashboard = () => {
         )}
 
         <p className="absolute font-semibold end-28 top-7">
-          {user.firstName} {user.lastName}
+          {userData?.firstName} {userData?.lastName}
         </p>
-        <div class="bg-red-300 hover:bg-red-400 w-[55px] h-[55px] absolute end-6 rounded-full p-[12px] shadow-customShadow">
+        <div className="bg-red-300 hover:bg-red-400 w-[55px] h-[55px] absolute end-6 rounded-full p-[12px] shadow-customShadow">
           <img src={profile} className=" h-10"/>
         </div>
       </nav>

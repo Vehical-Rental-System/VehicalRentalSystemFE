@@ -2,7 +2,7 @@ import axios from "axios";
 import base_url from "../../api/bootapi";
 import { useForm } from "react-hook-form"; 
 
-function NewRideForm() {
+const NewRideForm = () =>{
   const {register, handleSubmit, formState: { errors }, reset, getValues,} = useForm({
     defaultValues: {
       firstName: "",
