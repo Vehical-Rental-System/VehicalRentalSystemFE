@@ -9,8 +9,7 @@ import profile from "./assets/profile.svg";
 
 const Dashboard = () => {
   const location = useLocation();
-  const userData = useSelector((state) => state.user.userData)
-  console.log(userData);
+  const userData = useSelector((state) => state.user.userData) 
   const isNewRideActive = location.pathname.startsWith("/newRide");
 
   // const { user, setUser } = useUser(); // user context

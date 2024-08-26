@@ -27,14 +27,15 @@ const Login = () => {
       .post(`${process.env.REACT_APP_BASE_URL}/users/login`, data)
       .then((res) => {
         // console.log(res.data);
-        return res.data;
+        return res?.data;
       })
       .then((res) => {
-        const userData = res.data.user
-        // console.log(userData)
-        dispatch(login({userData, accessToken: ""}))
-         
-        if (res != null && res.success) {
+        // console.log(res);
+        if (res?.data.user != null && res?.success) {
+          const userData = res.data.user
+          const accessToken = res.data.accessToken
+          // console.log(userData)
+          dispatch(login({userData, accessToken}))
           navigate("/dashboard");
         } else {
           alert(res?.message);
