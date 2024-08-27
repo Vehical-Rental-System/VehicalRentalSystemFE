@@ -14,6 +14,7 @@ import NewRideForm from './components/Dashboard/NewRideForm';
 import QRForm from './components/Dashboard/QRForm';
 import Vehicle from './components/Dashboard/Vehicles';
 import ForgotPassword from './components/Profile/ForgotPassword';
+import ErrorPage from './components/ErrorPage';
 
 import store, {persistor} from './store/store';
 import { Provider } from 'react-redux';
@@ -39,6 +40,8 @@ const router = createBrowserRouter(
                <Route path='vehicles' element={<Vehicle/>}/>
                <Route path='setting' element={<Setting/>}/>
          </Route>
+
+         <Route path='*' element={<ErrorPage/>}/>
       </ >
   )
 );
