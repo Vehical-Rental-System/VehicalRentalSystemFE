@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; 
 import { login } from "../../store/userSlice";
+import { updateAccessToken } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => { 
@@ -22,8 +23,8 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    axios
+  const onSubmit = async (data) => {
+    await axios
       .post(`${process.env.REACT_APP_BASE_URL}/users/login`, data)
       .then((res) => {
         // console.log(res.data);
@@ -34,8 +35,9 @@ const Login = () => {
         if (res?.data.user != null && res?.success) {
           const userData = res.data.user
           const accessToken = res.data.accessToken
-          // console.log(userData)
-          dispatch(login({userData, accessToken}))
+          console.log(userData)
+          dispatch(login({userData}))
+          dispatch(updateAccessToken({accessToken}))
           navigate("/dashboard");
         } else {
           alert(res?.message);

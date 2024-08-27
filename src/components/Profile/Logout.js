@@ -1,15 +1,17 @@
 import logoutSvg from '../Dashboard/assets/logout.svg'
-import axios from 'axios'
+// import axios from 'axios'
+import api from '../../auth/auth'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../store/userSlice'
+import { updateAccessToken } from '../../store/authSlice'
 
 const Logout = () =>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleLogout = () =>{
-        axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`)
+    const handleLogout = async () =>{
+        await api.post(`${process.env.REACT_APP_BASE_URL}/users/logout`)
         .then((res) =>{
             console.log(res.data)
         })
@@ -18,6 +20,7 @@ const Logout = () =>{
         })
         .finally(() =>{
             dispatch(logout());
+            dispatch(updateAccessToken());
             navigate('/');
         })
 

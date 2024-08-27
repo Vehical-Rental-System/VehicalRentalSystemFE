@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../../auth/auth";
 import React, { useEffect, useState } from "react";
 import base_url from "../../api/bootapi";
 
@@ -18,18 +19,24 @@ export default function ActiveRides() {
   //     });
   // }, []);
 
-  const showRide = (aadhar) => {
-    axios
-      .post(`${base_url}/getRide`, { aadhar })
+  const showRide = async (aadhar) => {
+    await api
+      .get(`${process.env.REACT_APP_BASE_URL}/rides/activeRide`)
       .then((response) => {
-        setRide(response.data[0]);
-        console.log(response.data[0]);
+        console.log(response);
+        const data = response.data.data
+        setRides(data);
+        // console.log(response.data[0]);
       })
       .catch((error) => {
         console.log("Error : ", error);
       });
-    setPopupOpen(true);
+    // setPopupOpen(true);
   };
+
+  useEffect(() =>{
+    showRide();
+  }, [])
 
   return (
     // <div className="">
