@@ -1,115 +1,105 @@
-import React from 'react'
-import { Link,NavLink,useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import Logout from '../Profile/Logout'
+import React from "react";
+import { NavLink } from "react-router-dom"; 
+import Logout from "../Profile/Logout";
 
+import activeRide from "./assets/activeRide.svg"; 
+import history from "./assets/history.png";
+import vehicle from "./assets/vehicle.png"
+import plus from "./assets/plus.svg";
+import profile from "./assets/profile.svg"; 
+import settingsvg from "./assets/settingsvg.svg"; 
+import dashboard from "./assets/dashboard.svg";
 
-import activeRide from './assets/activeRide.svg'
-import customers from './assets/customers.svg'
-import plus from './assets/plus.svg'
-import profile from './assets/profile.svg'
-import setting from './assets/setting.svg'
-import logout from './assets/logout.svg'
-import dashboard from './assets/dashboard.svg'
-// import { useUser } from '../../contexts/UserContext'
-
-
-function Sidebar() {
-    const navigate = useNavigate();
-    // const {setUser} = useUser();
-
-    // const handleLogout = () =>{
-    //     axios.post(`${process.env.REACT_APP_BASE_URL}/users/logout`)
-    //     .then((res) =>{
-    //         console.log(res.data)
-    //     })
-    //     .catch((error) =>{
-    //         console.log("error: ", error);
-    //     })
-
-    //     // setUser('')
-    //     // localStorage.removeItem('firstName')
-    //     // localStorage.removeItem('lastName')
-    //     navigate('/');
-    // }
+function Sidebar() { 
 
   return (
-    <aside className='rounded-lg shadow-customShadow bg-gray-200 hover:bg-gra-300
-     h-[622px] w-[214px] left-2 top-2 flex flex-col'>
-        <h1 className='text-[25px] font-bold mt-3 ml-3 py-1 px-3 w-[190px] bg-red-100 rounded-lg shadow-customShadow'>Vehicle Rental</h1>
-        <div className='mt-8 w-[200px]'>
-            <div className='p-1'>
-                <img src={dashboard} className='absolute left-2 '/>
-                <label className='font-bold text-[20px] ml-[50px] '>Dashboard</label>
-            </div>
-            <div className='mt-2 flex flex-col'>
-
-                <NavLink to={'newRide'} 
-                    className={({isActive})=>`${isActive ? " shadow-customShadow bg-gray-100 " : ""}
-                    flex justify-center rounded-lg hover:shadow-customShadow mt-2 ml-3 px-3 py-2 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`}
-                 
-                >
-                    <img src={plus} className='absolute left-6 w-6 h-6'/>
-                    <span className=''>New Ride</span>
-                </NavLink> 
-
-                <NavLink to={'activeRide'}
-                className={({isActive}) =>`${isActive ? "shadow-customShadow bg-gray-100 " : ""} flex justify-center rounded-lg hover:shadow-customShadow mt-2 ml-3 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`}
-                >
-                    <img src={activeRide}
-                        className='absolute left-4'
-                    />
-                    <span className='ml-4 py-2'>Active Rides</span>
-                </NavLink> 
-
-                <NavLink to={'history'}
-                className={({isActive})=>`${isActive ? "shadow-customShadow bg-gray-100 ":""} flex justify-center rounded-lg hover:shadow-customShadow mt-2 ml-3 px-3 py-2 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`}
-                >
-                    <img src={customers} className='absolute left-5'/>
-                    <span className=''>History</span>
-                </NavLink> 
-
-                {/* <NavLink to={'history'}
-                className='flex justify-center rounded-lg hover:shadow-customShadow mt-2 px-3 py-2 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700
-                '>
-                    <span>Vehicles</span>
-                </NavLink>  */}
-
-                <NavLink to={'vehicles'}
-                className={({isActive})=>`${isActive ? "shadow-customShadow bg-gray-100 ":""} flex justify-center rounded-lg hover:shadow-customShadow mt-2 ml-3 px-3 py-2 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`}
-                >
-                    <img src=""/>
-                    <span className=''>Vehicles</span>
-                </NavLink>
-            </div>
+    <aside
+      className="rounded-lg shadow-customShadow bg-gray-200 hover:bg-gra-300
+     h-[625px] w-[180px] left-2 top-2 flex flex-col"
+    >
+      <h1 className="text-[20px] font-bold mt-3 ml-2 py-1 px-3 w-[160px] bg-red-100 rounded-lg shadow-customShadow">
+        Vehicle Rental
+      </h1>
+      <div className="mt-8 w-[170px]">
+        <div className="p-1 flex items-center">
+          <img src={dashboard} className="" />
+          <label className="font-bold text-[20px] ml-2">Dashboard</label>
         </div>
-        <div className='mt-3 w-[200px]'>
-            <div className='p-1 inline-block'>
-                <img src={profile} className='absolute left-2 w-8 h-9'/>
-                <label className='font-bold text-[20px] absolute mt-1 ml-12'>Profile</label>
-            </div>
-            <div className='mt-2 flex flex-col'>
-
-                <NavLink to={'setting'}
-                className={({isActive}) =>`${isActive ? "shadow-customShadow bg-gray-100 ":""} flex justify-center rounded-lg hover:shadow-customShadow px-3 py-2 mt-9 ml-3 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`}>
-                    <img src={setting} className='absolute left-10'/>
-                    <span className=''>Setting</span>
-                </NavLink>
-
-                {/* <button
-                className='flex justify-center rounded-lg hover:shadow-customShadow px-3 py-2 mt-3 ml-3 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700'
-                type='button'
-                onClick={handleLogout}
-                >
-                    <img src={logout} className='absolute left-10'/>
-                    <span>Logout</span>
-                </button>  */}
-                <Logout/>
-                  
-            </div>
+        <div className="mt-2 flex flex-col"> 
+          <NavLink
+            to={"newRide"}
+            className={({ isActive }) => `${
+              isActive ? " shadow-customShadow bg-gray-100 " : ""
+            }
+            flex items-center rounded-lg hover:shadow-customShadow mt-2 ml-3 px-3 py-2 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`}
+          >
+            <img src={plus} className="w-6 h-6" />
+            <span className="ml-2">New Ride</span>
+          </NavLink>
+          <NavLink
+            to={"activeRide"}
+            className={({ isActive }) =>
+              `${
+                isActive ? "shadow-customShadow bg-gray-100 " : ""
+              } flex items-center rounded-lg hover:shadow-customShadow mt-2 ml-3 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`
+            }
+          >
+            <img src={activeRide} className="w-8 h-8 ml-1.5" />
+            <span className="py-2 ml-1">Active Rides</span>
+          </NavLink>
+          <NavLink
+            to={"history"}
+            className={({ isActive }) =>
+              `${
+                isActive ? "shadow-customShadow bg-gray-100 " : ""
+              } flex items-center rounded-lg hover:shadow-customShadow mt-2 ml-3 px-3 py-2 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`
+            }
+          >
+            <img src={history} className="w-[22px]" />
+            <span className="ml-[10px]">History</span>
+          </NavLink> 
+          <NavLink
+            to={"vehicles"}
+            className={({ isActive }) =>
+              `${
+                isActive ? "shadow-customShadow bg-gray-100 " : ""
+              } flex items-center rounded-lg hover:shadow-customShadow mt-2 ml-3 px-3 py-2 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`
+            }
+          >
+            <img src={vehicle} className="w-[27px]" />
+            <span className="ml-[8px]">Vehicles</span>
+          </NavLink>
         </div>
+      </div>
+
+      <div className="mt-12 w-[170px]">
+        <div className="p-1 flex items-center">
+          <img src={profile} className="w-8 h-8 ml-0.5" />
+          <label className="font-bold text-[20px] ml-2">
+            Profile
+          </label>
+        </div>
+        <div className="flex flex-col">
+        <NavLink
+            to={"profile/setting"}
+            className={({ isActive }) =>
+              `${
+                isActive ? "shadow-customShadow bg-gray-100 " : ""
+              } flex items-center rounded-lg hover:shadow-customShadow px-3 py-2 mt-6 ml-3 text-[18px] text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700`
+            }
+          >
+            <img
+              src={settingsvg}
+              className="h-[22px] w-[22px]"
+            />
+            <span className="ml-3">Setting</span>
+          </NavLink>  
+          
+          <Logout />
+        </div>
+      </div>
     </aside>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;

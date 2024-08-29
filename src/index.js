@@ -38,7 +38,7 @@ const router = createBrowserRouter(
                   <Route path='qrform' element={<QRForm/>}/>
                </Route>
                <Route path='vehicles' element={<Vehicle/>}/>
-               <Route path='setting' element={<Setting/>}/>
+               <Route path='profile/setting' element={<Setting/>}/>
          </Route>
 
          <Route path='*' element={<ErrorPage/>}/>
