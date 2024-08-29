@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import { encryptTransform } from "redux-persist-transform-encrypt";
 
 import userReducer from "./userSlice";
-// import ordersReducer from "./ordersSlice";
+import authReducer from "./authSlice";
 
 
 // Encryption transformer
@@ -21,13 +21,13 @@ const persistConfig = {
   key: "root",
   storage,
   transforms: [encryptor],
-  whitelist: ["user", {/*"orders"*/}], // List slices you want to persist
+  whitelist: ["user", "auth"], // List slices you want to persist
 };
 
 // Combine all reducers
 const rootReducer = combineReducers({
   user: userReducer,
-//   orders: ordersReducer,
+  auth : authReducer,
 });
 
 // Create a persisted reducer
@@ -36,8 +36,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // Configure the store with the persisted reducer
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,  // Necessary due to the encryptor transform
+    }),
 });
 
-export const persistor = persistStore(store);
+export const  persistor  = persistStore(store);
 
 export default store;
