@@ -22,7 +22,8 @@ function Setting() {
   };
   return (
     // <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-    <div className=" mt-10 p-6 bg-white shadow-lg rounded-lg">
+    <div className="">
+      <label>User settings</label>
       <h2 className="text-2xl font-semibold mb-6 text-center">Profile Settings</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
